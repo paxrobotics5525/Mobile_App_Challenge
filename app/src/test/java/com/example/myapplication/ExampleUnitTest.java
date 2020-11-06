@@ -1,4 +1,4 @@
-package com.example.mobile_app_challenge;
+package com.example.myapplication;
 
 import org.junit.Test;
 
