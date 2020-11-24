@@ -18,7 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private AppBarConfiguration mAppBarConfiguration;
     @Override
