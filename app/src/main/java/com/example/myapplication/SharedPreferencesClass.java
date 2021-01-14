@@ -2,14 +2,14 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 public class SharedPreferencesClass {
     SharedPreferences prefs;
     Context context;
-    public static Calendar lastMoodCheck;
-    public static int lastQuoteUpdate;
+    public static Date lastMoodCheck;
+    public static Date lastQuoteUpdate;
     public static String lastQuote;
 
     public static SharedPreferences getPrefs(Context context){

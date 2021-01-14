@@ -27,8 +27,10 @@ import com.example.myapplication.R;
 import com.example.myapplication.SharedPreferencesClass;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.util.Random;
 import java.util.Calendar;
+import java.util.Date;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -45,41 +47,43 @@ public class HomeFragment extends Fragment{
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // Create the needed objects from the resource file
         quoteTextView = (TextView) root.findViewById(R.id.quoteTextView);
         linear = (LinearLayout) root.findViewById(R.id.home_linear);
 
-        int dayOfYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
-        // Perform actions that will only occur once every day
-        // Ex: daily quotes
-        if(SharedPreferencesClass.lastQuoteUpdate < dayOfYear){
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy,kk");
+
+        // Check whether or not to update the daily quote
+        if(getTimeDifference(Calendar.getInstance().getTime(), SharedPreferencesClass.lastQuoteUpdate) > 24){
             String[] arr = getResources().getStringArray(R.array.quotes);
             int ran = new Random().nextInt((arr.length));
             quoteTextView.setText(arr[ran]);
 
-            SharedPreferencesClass.insertData(getContext(), "last_quote_update", String.valueOf(dayOfYear));
+            SharedPreferencesClass.insertData(getContext(), "last_quote_update", dateFormat.format(date));
             SharedPreferencesClass.insertData(getContext(), "last_quote", String.valueOf(arr[ran]));
-
-
         }
         else{
             quoteTextView.setText(SharedPreferencesClass.lastQuote);
         }
 
-        long diff = Calendar.getInstance().getTimeInMillis() - SharedPreferencesClass.lastMoodCheck.getTimeInMillis();
-        long millisInHour = 60*60*1000;
-        if(diff > millisInHour*24){
+        // Check whether or not to take a mood check
+        if(getTimeDifference(Calendar.getInstance().getTime(), SharedPreferencesClass.lastMoodCheck) > 24){
             addFragment(new MoodTrackerFragment());
         }
         return root;
     }
+
+    // Return the time difference in hours
+    public long getTimeDifference(Date firstDate, Date secondDate){
+        long diff = firstDate.getTime() - secondDate.getTime();
+        long millisInHour = 60*60*1000;
+        return diff/millisInHour;
+    }
+
+    // Add a fragment to the bottom of the vertical linear layout
     public void addFragment(Fragment frag){
         getActivity().getSupportFragmentManager().beginTransaction().add(linear.getId(), frag).commit();
     }
-    private final View.OnClickListener onClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-        }
-    };
-
 }

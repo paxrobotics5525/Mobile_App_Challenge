@@ -21,7 +21,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MoodTrackerFragment extends Fragment{
 
@@ -38,6 +40,7 @@ public class MoodTrackerFragment extends Fragment{
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_mood_tracker, container, false);
 
+        // Setup all of the mood tracker buttons and on click liteners
         expand = (Button) root.findViewById(R.id.mood_tracker_expand_collapse);
         Button happy = (Button) root.findViewById(R.id.mood_tracker_happy);
         Button sad = (Button) root.findViewById(R.id.mood_tracker_sad);
@@ -65,9 +68,11 @@ public class MoodTrackerFragment extends Fragment{
         tired.setOnClickListener(onClick);
         sick.setOnClickListener(onClick);
 
+        linear = (LinearLayout) root.findViewById(R.id.linearLayout);
+
+        // Get the images for the expand and contract button
         expandDrw = ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_group_expand_00, null);
         collapseDrw = ResourcesCompat.getDrawable(getContext().getResources(), R.drawable.ic_group_collapse_00, null);
-        linear = (LinearLayout) root.findViewById(R.id.linearLayout);
         return root;
     }
 
@@ -76,12 +81,15 @@ public class MoodTrackerFragment extends Fragment{
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.mood_tracker_expand_collapse:
+
+                    // contract the fragment
                     if(moodTrackerIsExpanded) {
                         root.getLayoutParams().height = linear.getHeight() + 80;
                         root.requestLayout();
                         moodTrackerIsExpanded = false;
                         expand.setBackground(expandDrw);
                     }
+                    //expand the fragment
                     else{
                         root.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
                         root.requestLayout();
@@ -141,20 +149,25 @@ public class MoodTrackerFragment extends Fragment{
     };
     private void selfDestruct(char data){
         try{
-            Calendar cal = Calendar.getInstance();
-            DecimalFormat format= new DecimalFormat("00");
-            //API calendar months start at 0, so must add 1
-            String output = data + "," + format.format(cal.get(Calendar.MONTH) + 1) + "/" + format.format(cal.get(Calendar.DAY_OF_MONTH)) + "/" + cal.get(Calendar.YEAR) + "," + format.format(cal.get(Calendar.HOUR_OF_DAY)) + "\n";
-            String filename = getContext().getFilesDir().getPath() + "/mood_tracker.txt";
+            // Form a string that contains the mood chosen and the date
+            // Then write it to mood_tracker.txt
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy,kk");
+            Date date = Calendar.getInstance().getTime();
+            DecimalFormat format= new DecimalFormat("00");
+
+            String output = data + "," + dateFormat.format(date) + "\n";
+
+            String filename = getContext().getFilesDir().getPath() + "/mood_tracker.txt";
             FileOutputStream stream = new FileOutputStream(filename, true);
             stream.write(output.getBytes(Charset.defaultCharset()));
-            SharedPreferencesClass.lastMoodCheck = cal;
+            SharedPreferencesClass.lastMoodCheck = date;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // Delete the mood tracker fragment
         getParentFragmentManager().beginTransaction().remove(this).commit();
     }
 }

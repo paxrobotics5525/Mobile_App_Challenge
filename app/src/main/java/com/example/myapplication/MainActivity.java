@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 
@@ -22,6 +23,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -54,12 +57,17 @@ public class MainActivity extends AppCompatActivity{
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
         loadData();
     }
 
+    // Loads the required stored data
+    // Currently includes mood tracker and daily quote data
     private void loadData(){
-        SharedPreferencesClass.lastMoodCheck = Calendar.getInstance();
-        SharedPreferencesClass.lastMoodCheck.set(1980, 0, 4, 0, 0);// Initialize data as a while ago
+        // Mood check data
+        SharedPreferencesClass.lastMoodCheck = Calendar.getInstance().getTime();
+        SharedPreferencesClass.lastMoodCheck.setYear(0);// Initialize data as a while ago
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy,kk");
         try {
             String filename = getFilesDir().getPath() + "/mood_tracker.txt";
             FileInputStream stream = new FileInputStream(filename);
@@ -71,24 +79,32 @@ public class MainActivity extends AppCompatActivity{
             stream.read(data, 0, 16);
             String stringData = new String(data, Charset.defaultCharset());
 
-            int month = Integer.parseInt(stringData.substring(2,4)) - 1; // API calendar months start at 0, so must subtract 1
-            int day = Integer.parseInt(stringData.substring(5,7));
-            int year = Integer.parseInt(stringData.substring(8,12));
-            int hour = Integer.parseInt(stringData.substring(13,15));
-            SharedPreferencesClass.lastMoodCheck.set(year, month, day, hour, 0);
+            Date date = dateFormat.parse(stringData.substring(2,15));
+            SharedPreferencesClass.lastMoodCheck = date;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
+        // Daily quote data
         String last_update = SharedPreferencesClass.retriveData(getApplicationContext(),"last_quote_update");
         SharedPreferencesClass.lastQuote = SharedPreferencesClass.retriveData(getApplicationContext(),"last_quote");
         if(last_update.equals("no_data_found")){
             last_update = "0";
+            SharedPreferencesClass.lastQuoteUpdate = Calendar.getInstance().getTime();
+            SharedPreferencesClass.lastQuoteUpdate.setYear(0);
         }
-        SharedPreferencesClass.lastQuoteUpdate = Integer.parseInt(last_update);
+        else {
+            try {
+                SharedPreferencesClass.lastQuoteUpdate = dateFormat.parse(last_update);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
