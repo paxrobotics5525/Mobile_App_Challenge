@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 public class MoodTrackerFragment extends Fragment{
@@ -141,9 +142,9 @@ public class MoodTrackerFragment extends Fragment{
     private void selfDestruct(char data){
         try{
             Calendar cal = Calendar.getInstance();
-
+            DecimalFormat format= new DecimalFormat("00");
             //API calendar months start at 0, so must add 1
-            String output = data + "," + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR) + "," + cal.get(Calendar.HOUR_OF_DAY) + "\n";
+            String output = data + "," + format.format(cal.get(Calendar.MONTH) + 1) + "/" + format.format(cal.get(Calendar.DAY_OF_MONTH)) + "/" + cal.get(Calendar.YEAR) + "," + format.format(cal.get(Calendar.HOUR_OF_DAY)) + "\n";
             String filename = getContext().getFilesDir().getPath() + "/mood_tracker.txt";
 
             FileOutputStream stream = new FileOutputStream(filename, true);
