@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.meditation;
+package pax.mesa.tbd.ui.meditation;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

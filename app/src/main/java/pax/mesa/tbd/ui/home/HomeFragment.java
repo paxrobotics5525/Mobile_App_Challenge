@@ -1,8 +1,5 @@
-package com.example.myapplication.ui.home;
+package pax.mesa.tbd.ui.home;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.R;
-import com.example.myapplication.SharedPreferencesClass;
+import pax.mesa.tbd.SharedPreferencesClass;
 
 import java.util.Random;
 import java.util.Calendar;

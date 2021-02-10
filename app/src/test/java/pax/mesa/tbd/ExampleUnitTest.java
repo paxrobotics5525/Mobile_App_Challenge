@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package pax.mesa.tbd;
 
 import org.junit.Test;
 

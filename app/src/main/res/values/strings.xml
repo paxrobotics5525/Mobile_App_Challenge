@@ -10,4 +10,15 @@
     <string name="menu_home">Home</string>
     <string name="menu_forums">Forums</string>
     <string name="menu_meditation">Meditation</string>
+    <string name="login">Login</string>
+    <string name="password_tag">Password</string>
+    <string name="email_tag">Email</string>
+    <string name="create_account"><u>Need an account?</u></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tag_email_addy">Enter an email address</string>
+    <string name="tag_cr_password">Enter a password</string>
+    <string name="tag_con_password">Confirm password</string>
+    <string name="tag_cre_account">Create Account</string>
+    <string name="tag_register">Register</string>
 </resources>
