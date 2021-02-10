@@ -21,4 +21,5 @@
     <string name="tag_con_password">Confirm password</string>
     <string name="tag_cre_account">Create Account</string>
     <string name="tag_register">Register</string>
+    <string name="tag_logout">Logout</string>
 </resources>
