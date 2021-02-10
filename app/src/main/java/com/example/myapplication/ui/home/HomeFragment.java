@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,11 +24,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.myapplication.Preferences.SettingsFragment;
 import com.example.myapplication.R;
 import com.example.myapplication.SharedPreferencesClass;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Random;
 import java.util.Calendar;
 import java.util.Date;
@@ -72,6 +75,7 @@ public class HomeFragment extends Fragment{
         if(getTimeDifference(Calendar.getInstance().getTime(), SharedPreferencesClass.lastMoodCheck) > 24){
             addFragment(new MoodTrackerFragment());
         }
+
         return root;
     }
 
