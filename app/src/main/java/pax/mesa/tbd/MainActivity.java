@@ -1,11 +1,11 @@
 package pax.mesa.tbd;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.view.ActionMode;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -15,7 +15,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.view.menu.ActionMenuItem;
+import androidx.appcompat.widget.ActionMenuView;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -26,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import pax.mesa.tbd.ui.home.HomeFragmentDirections;
+import pax.mesa.tbd.ui.login.LoginFragmentDirections;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
 
-        Button buttonLogOut = (Button) findViewById(R.id.account_logout);
-
         mAuth = FirebaseAuth.getInstance();
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -53,17 +53,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Logout user
-        /*buttonLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-
-                NavDirections action = HomeFragmentDirections.actionHomeToLogin();
-                Navigation.findNavController(v).navigate(action);
-                Toast.makeText(MainActivity.this, "Logged out.", Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -85,6 +74,31 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.action_logout:
+                logoutUser();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void logoutUser() {
+        if(mAuth.getCurrentUser() != null) {
+            //Log out
+            mAuth.signOut();
+            //Display log out message
+            Toast.makeText(this, "Successfully logged out.", Toast.LENGTH_SHORT).show();
+            //Go to login screen
+            NavDirections action = HomeFragmentDirections.actionHomeToLogin();
+            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(action);
+        } else {
+            Toast.makeText(this, "You are not logged in.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
