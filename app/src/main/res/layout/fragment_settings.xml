@@ -27,15 +27,15 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="First Name: " />
+            android:layout_weight="0"
+            android:text="First Name: "
+            android:maxLines="1"/>
 
         <EditText
             android:id="@+id/firstNameEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
             android:inputType="textPersonName"
             android:text="" />
 
@@ -54,15 +54,15 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Last Name:" />
+            android:layout_weight="0"
+            android:maxLines="1"
+            android:text="Last Name: "/>
 
         <EditText
             android:id="@+id/lastNameEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
             android:inputType="textPersonName"
             android:text="" />
 
@@ -147,4 +147,5 @@
         android:paddingTop="20dp"
         android:text="Mood Tracker"
         android:textColor="@color/teal_700" />
+
 </LinearLayout>

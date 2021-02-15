@@ -29,10 +29,11 @@ public class HomeFragment extends Fragment{
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
-
+        if(savedInstanceState != null) return root;
         // Create the needed objects from the resource file
         quoteTextView = (TextView) root.findViewById(R.id.quoteTextView);
         linear = (LinearLayout) root.findViewById(R.id.home_linear);
