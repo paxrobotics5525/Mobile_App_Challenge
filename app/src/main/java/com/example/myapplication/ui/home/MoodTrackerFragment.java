@@ -13,7 +13,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.SharedPreferencesClass;
+import com.example.myapplication.Prefs;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.FileNotFoundException;
@@ -161,7 +161,7 @@ public class MoodTrackerFragment extends Fragment{
             String filename = getContext().getFilesDir().getPath() + "/mood_tracker.txt";
             FileOutputStream stream = new FileOutputStream(filename, true);
             stream.write(output.getBytes(Charset.defaultCharset()));
-            SharedPreferencesClass.lastMoodCheck = date;
+            Prefs.lastMoodCheck = date;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

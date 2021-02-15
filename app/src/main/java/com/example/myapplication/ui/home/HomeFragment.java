@@ -1,41 +1,23 @@
 package com.example.myapplication.ui.home;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myapplication.Preferences.SettingsFragment;
 import com.example.myapplication.R;
-import com.example.myapplication.SharedPreferencesClass;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.myapplication.Prefs;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Random;
 import java.util.Calendar;
 import java.util.Date;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class HomeFragment extends Fragment{
 
@@ -59,20 +41,20 @@ public class HomeFragment extends Fragment{
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy,kk");
 
         // Check whether or not to update the daily quote
-        if(getTimeDifference(Calendar.getInstance().getTime(), SharedPreferencesClass.lastQuoteUpdate) > 24){
+        if(getTimeDifference(Calendar.getInstance().getTime(), Prefs.lastQuoteUpdate) > 24){
             String[] arr = getResources().getStringArray(R.array.quotes);
             int ran = new Random().nextInt((arr.length));
             quoteTextView.setText(arr[ran]);
 
-            SharedPreferencesClass.insertData(getContext(), "last_quote_update", dateFormat.format(date));
-            SharedPreferencesClass.insertData(getContext(), "last_quote", String.valueOf(arr[ran]));
+            Prefs.insertString(getContext(), "last_quote_update", dateFormat.format(date));
+            Prefs.insertString(getContext(), "last_quote", String.valueOf(arr[ran]));
         }
         else{
-            quoteTextView.setText(SharedPreferencesClass.lastQuote);
+            quoteTextView.setText(Prefs.lastQuote);
         }
 
         // Check whether or not to take a mood check
-        if(getTimeDifference(Calendar.getInstance().getTime(), SharedPreferencesClass.lastMoodCheck) > 24){
+        if(getTimeDifference(Calendar.getInstance().getTime(), Prefs.lastMoodCheck) > 24){
             addFragment(new MoodTrackerFragment());
         }
 

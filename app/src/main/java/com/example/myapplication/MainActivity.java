@@ -1,20 +1,17 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 
-import com.example.myapplication.Preferences.SettingsFragment;
+import com.example.myapplication.preferences.SettingsFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -23,16 +20,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -71,8 +64,8 @@ public class MainActivity extends AppCompatActivity{
     // Currently includes mood tracker and daily quote data
     private void loadData(){
         // Mood check data
-        SharedPreferencesClass.lastMoodCheck = Calendar.getInstance().getTime();
-        SharedPreferencesClass.lastMoodCheck.setYear(0);// Initialize data as a while ago
+        Prefs.lastMoodCheck = Calendar.getInstance().getTime();
+        Prefs.lastMoodCheck.setYear(0);// Initialize data as a while ago
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy,kk");
         try {
             String filename = getFilesDir().getPath() + "/mood_tracker.txt";
@@ -86,7 +79,7 @@ public class MainActivity extends AppCompatActivity{
             String stringData = new String(data, Charset.defaultCharset());
 
             Date date = dateFormat.parse(stringData.substring(2,15));
-            SharedPreferencesClass.lastMoodCheck = date;
+            Prefs.lastMoodCheck = date;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -97,16 +90,16 @@ public class MainActivity extends AppCompatActivity{
         }
 
         // Daily quote data
-        String last_update = SharedPreferencesClass.retriveData(getApplicationContext(),"last_quote_update");
-        SharedPreferencesClass.lastQuote = SharedPreferencesClass.retriveData(getApplicationContext(),"last_quote");
+        String last_update = Prefs.retriveData(getApplicationContext(),"last_quote_update");
+        Prefs.lastQuote = Prefs.retriveData(getApplicationContext(),"last_quote");
         if(last_update.equals("no_data_found")){
             last_update = "0";
-            SharedPreferencesClass.lastQuoteUpdate = Calendar.getInstance().getTime();
-            SharedPreferencesClass.lastQuoteUpdate.setYear(0);
+            Prefs.lastQuoteUpdate = Calendar.getInstance().getTime();
+            Prefs.lastQuoteUpdate.setYear(0);
         }
         else {
             try {
-                SharedPreferencesClass.lastQuoteUpdate = dateFormat.parse(last_update);
+                Prefs.lastQuoteUpdate = dateFormat.parse(last_update);
             } catch (ParseException e) {
                 e.printStackTrace();
             }

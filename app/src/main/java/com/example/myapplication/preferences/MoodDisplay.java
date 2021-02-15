@@ -1,13 +1,9 @@
-package com.example.myapplication.Preferences;
+package com.example.myapplication.preferences;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.preference.Preference;
-import androidx.preference.PreferenceViewHolder;
 
 import com.example.myapplication.R;
 

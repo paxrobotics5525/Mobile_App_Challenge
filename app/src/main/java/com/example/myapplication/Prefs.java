@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import java.util.Date;
 import java.util.Set;
 
-public class SharedPreferencesClass {
+public class Prefs {
     SharedPreferences prefs;
     Context context;
     public static Date lastMoodCheck;
@@ -16,9 +16,14 @@ public class SharedPreferencesClass {
         return context.getSharedPreferences("prefs",Context.MODE_PRIVATE);
     }
 
-    public static void insertData(Context context,String key,String value){
+    public static void insertString(Context context,String key,String value){
         SharedPreferences.Editor editor=getPrefs(context).edit();
         editor.putString(key,value);
+        editor.commit();
+    }
+    public static void insertBool(Context context,String key,Boolean value){
+        SharedPreferences.Editor editor=getPrefs(context).edit();
+        editor.putBoolean(key,value);
         editor.commit();
     }
 
