@@ -17,9 +17,12 @@ public class ForumsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                new ViewModelProvider(this).get(ForumsViewModel.class);
+        galleryViewModel = new ViewModelProvider(this).get(ForumsViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_forums, container, false);
+        
+
+
         return root;
     }
 }
