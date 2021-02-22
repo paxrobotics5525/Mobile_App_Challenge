@@ -32,7 +32,7 @@ public class Prefs {
         getPrefs(context).edit().putStringSet(key,value).commit();
     }
 
-    public static String retriveData(Context context,String key){
+    public static String retrieveData(Context context,String key){
         return getPrefs(context).getString(key,"no_data_found");
     }
 
