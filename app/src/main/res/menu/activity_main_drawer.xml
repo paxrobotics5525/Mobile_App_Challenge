@@ -18,4 +18,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_meditation" />
     </group>
+
+    <item
+        android:id="@+id/nav_settings"
+        android:checkableBehavior="single"
+        android:icon="@drawable/baseline_settings_black_18dp"
+        android:title="@string/menu_settings" />
 </menu>

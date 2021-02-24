@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/mood_tracker_background"
+    android:orientation="vertical"
+    tools:context="pax.mesa.tbd.ui.home.MoodTrackerFragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="391dp"
+        android:layout_height="24dp"
+        android:paddingTop="5dp"
+        android:text="How are you feeling today?"
+        android:textAlignment="center"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/mood_tracker_happy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="😀"
+            android:textSize="@dimen/mood_tracker_font" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/mood_tracker_sad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="😭"
+            android:textSize="@dimen/mood_tracker_font"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/mood_tracker_exhausted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🥵"
+            android:textSize="@dimen/mood_tracker_font"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/mood_tracker_expand_collapse"
+            android:layout_width="34dp"
+            android:layout_height="27dp"
+            android:background="@drawable/ic_group_expand_00"
+            android:paddingRight="10dp"
+            app:backgroundTint="@color/white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/mood_tracker_funny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🤣"
+            android:textSize="@dimen/mood_tracker_font"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/mood_tracker_cool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="😎"
+            android:textSize="@dimen/mood_tracker_font"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/mood_tracker_mindblown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🤯"
+            android:textSize="@dimen/mood_tracker_font"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/mood_tracker_angry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🤬"
+            android:textSize="@dimen/mood_tracker_font"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/mood_tracker_tired"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="😴"
+            android:textSize="@dimen/mood_tracker_font"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/mood_tracker_sick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🤮"
+            android:textSize="@dimen/mood_tracker_font"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

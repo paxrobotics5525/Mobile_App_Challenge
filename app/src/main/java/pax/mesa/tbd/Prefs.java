@@ -1,20 +1,30 @@
 package pax.mesa.tbd;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.Date;
 import java.util.Set;
 
-public class SharedPreferencesClass {
+public class Prefs {
     SharedPreferences prefs;
     Context context;
+    public static Date lastMoodCheck;
+    public static Date lastQuoteUpdate;
+    public static String lastQuote;
 
     public static SharedPreferences getPrefs(Context context){
         return context.getSharedPreferences("prefs",Context.MODE_PRIVATE);
     }
 
-    public static void insertData(Context context,String key,String value){
+    public static void insertString(Context context,String key,String value){
         SharedPreferences.Editor editor=getPrefs(context).edit();
         editor.putString(key,value);
+        editor.commit();
+    }
+    public static void insertBool(Context context,String key,Boolean value){
+        SharedPreferences.Editor editor=getPrefs(context).edit();
+        editor.putBoolean(key,value);
         editor.commit();
     }
 
@@ -22,7 +32,7 @@ public class SharedPreferencesClass {
         getPrefs(context).edit().putStringSet(key,value).commit();
     }
 
-    public static String retriveData(Context context,String key){
+    public static String retrieveData(Context context,String key){
         return getPrefs(context).getString(key,"no_data_found");
     }
 

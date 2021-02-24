@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "350087005414",
+    "firebase_url": "https://mesa-app-challenge-default-rtdb.firebaseio.com",
+    "project_id": "mesa-app-challenge",
+    "storage_bucket": "mesa-app-challenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350087005414:android:6616cbb92ef15721272727",
+        "android_client_info": {
+          "package_name": "pax.mesa.tbd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "350087005414-objo94r82at2364l8m7qh6sck65frss7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK7s0pwYPM4NeWg5lV0XCJXhgpf7QOYsg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "350087005414-objo94r82at2364l8m7qh6sck65frss7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

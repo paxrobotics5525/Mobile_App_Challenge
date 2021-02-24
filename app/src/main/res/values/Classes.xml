@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="classes">
+
+        <item>Academy of Health Professions I</item>
+        <item>Academy of Health Professions II</item>
+        <item>Academy of Health Professions II Track A- Nursing Assistant and Medical Assistant</item>
+        <item>Academy of Health Professions II Track B- Nursing Assistant and Physical Therapy/Sports Medicine</item>
+        <item>Advanced Accounting</item>
+        <item>Apprenticeship Maryland Related Technical Instruction</item>
+        <item>Apprenticeship Maryland Work-based Learning Experience I</item>
+        <item>Apprenticeship Maryland Work-based Learning Experience II</item>
+        <item>Apprenticeship Maryland Work-based Learning Experience III</item>
+        <item>Service Technician I</item>
+        <item>Service Technician II</item>
+        <item>Principles of Business Administration and Management</item>
+        <item>Principles of Accounting</item>
+        <item>Office Systems Management (Word/PowerPoint)</item>
+        <item>Office Systems Management (Excel/Access)</item>
+        <item>Principles of Business Administration and Management</item>
+        <item>Principles of Accounting</item>
+        <item>Advanced Business Management</item>
+        <item>Career Research and Development</item>
+        <item>Career Research and Development Seminar</item>
+        <item>Work-Based Learning Experience</item>
+        <item>Carpentry I</item>
+        <item>Carpentry II</item>
+        <item>PC Troubleshooting and Introduction to Network Engineering</item>
+        <item>Cyber Security and Network Engineering</item>
+        <item>Foundations of Computer Science</item>
+        <item>AP Computer Science Principles</item>
+        <item>App Development</item>
+        <item>AP Computer Science Coding</item>
+        <item>Cosmetology I – Principles and Practice of Cosmetology</item>
+        <item>Cosmetology II</item>
+        <item>American Criminal Justice System</item>
+        <item>Juvenile Justice</item>
+        <item>Criminal Law</item>
+        <item>Criminal Investigation</item>
+        <item>Culinary Arts I</item>
+        <item>Culinary Arts II</item>
+        <item>Introduction to Agriculture, Food, and Natural Resources</item>
+        <item>Principles of Agricultural Science-Animal (ASA)</item>
+        <item>Animal and Plant Biotechnology</item>
+        <item>Agriculture Business, Research, and Development</item>
+        <item>Electricity I</item>
+        <item>Electricity II</item>
+        <item>Fire and Rescue I</item>
+        <item>Fire and Rescue II</item>
+        <item>Graphic Arts I</item>
+        <item>Graphic Arts II</item>
+        <item>Home Improvement I</item>
+        <item>Home Improvement II</item>
+        <item>Interactive Media Production I</item>
+        <item>Interactive Media Production II</item>
+        <item>Heating, Ventilation, Air Conditioning (HVAC) I</item>
+        <item>Heating, Ventilation, Air Conditioning (HVAC) II</item>
+        <item>Principles of the Biomedical Sciences</item>
+        <item>Human Body Systems</item>
+        <item>Medical Interventions</item>
+        <item>Biomedical Innovation</item>
+        <item>Introduction to Engineering Design</item>
+        <item>Principles of Engineering</item>
+        <item>Digital Electronics</item>
+        <item>Aerospace Engineering</item>
+        <item>Engineering Design and Development</item>
+        <item>Civil Engineering and Architecture</item>
+        <item>Human Growth and Development Through Adolescence</item>
+        <item>Teaching as a Profession</item>
+        <item>Foundations of Curriculum and Instruction</item>
+        <item>Education Academy Internship</item>
+        <item>Welding I</item>
+        <item>Welding II</item>
+        <item>Principles of Business Administration and Management</item>
+        <item>Business Mathematics</item>
+        <item>AP Microeconomics</item>
+        <item>Financial Literacy: Money Management</item>
+        <item>Computer Keyboarding for College and Careers</item>
+
+
+
+        <item>English 9</item>
+        <item>Honors English 9</item>
+        <item>English 10</item>
+        <item>Honors English 10</item>
+        <item>English 11</item>
+        <item>Honors English 11</item>
+        <item>AP English Language and Composition</item>
+        <item>College and Career Ready English 12</item>
+        <item>Honors Composition and Rhetoric</item>
+        <item>Advanced Placement English Literature and Composition</item>
+        <item>Journalism I</item>
+        <item>Journalism II: Broadcasting</item>
+        <item>Journalism II: Newspaper</item>
+        <item>Journalism II: Yearbook</item>
+        <item>Journalism III: Advanced Broadcasting</item>
+        <item>Journalism III: Advanced Newspaper</item>
+        <item>Journalism III: Advanced Yearbook</item>
+        <item>Creative Writing</item>
+        <item>Introduction to Film</item>
+
+
+
+        <item>Nutrition Technology</item>
+        <item>Cultures and Cuisines</item>
+
+
+        <item>Dance I</item>
+        <item>Dance II</item>
+        <item>Music Theory</item>
+        <item>Advanced Placement Music Theory</item>
+        <item>Chorale</item>
+        <item>Chorus I</item>
+        <item>Chamber Chorus</item>
+        <item>Music Theatre</item>
+        <item>Concert Chorus</item>
+        <item>Music Appreciation online</item>
+        <item>Symphonic Band</item>
+        <item>Wind Ensemble</item>
+        <item>Jazz Ensemble</item>
+        <item>String Orchestra</item>
+        <item>Advanced Orchestra</item>
+        <item>Brass Ensembles: Duets, Trios, Quartets and Quintets</item>
+        <item>Percussion Ensembles: Duets, Trios, Quartets, and Quintets</item>
+        <item>Symphony Orchestra</item>
+        <item>Guitar</item>
+        <item>Advanced Guitar</item>
+        <item>Theatre I</item>
+        <item>Theatre II</item>
+        <item>Advanced Acting I</item>
+        <item>Advanced Acting II</item>
+        <item>Advanced Acting III</item>
+        <item>Stagecraft</item>
+        <item>Improvisational Theatre</item>
+        <item>Art and Design</item>
+        <item>Drawing and Painting</item>
+        <item>Advanced Drawing and Painting</item>
+        <item>Sculpture</item>
+        <item>Advanced Sculpture</item>
+        <item>Ceramics</item>
+        <item>Advanced Ceramics</item>
+        <item>Advanced Ceramics</item>
+        <item>Advanced Photography Black and White and Digital</item>
+        <item>Studio Art</item>
+        <item>Advanced Placement Studio - Drawing</item>
+        <item>Advanced Placement Studio - Two Dimensional Design</item>
+        <item>Advanced Placement Studio - Three Dimensional Design</item>
+        <item>Advanced Placement – Art History</item>
+
+        <item>Comprehensive Algebra 1</item>
+        <item>Academic Algebra 1</item>
+        <item>Intermediate Algebra</item>
+        <item>Academic Algebra 2</item>
+        <item>Honors Algebra 2</item>
+        <item>Geometry</item>
+        <item>Honors Geometry</item>
+        <item>Accelerated Algebra II/Pre-Calculus</item>
+        <item>Advanced Mathematics</item>
+        <item>Academic Pre-Calculus with Trigonometry</item>
+        <item>Honors Pre-Calculus with Trigonometry</item>
+        <item>Advanced Placement Calculus 1</item>
+        <item>Advanced Placement Calculus 2</item>
+        <item>Statistics</item>
+        <item>Advanced Placement Statistic</item>
+        <item>Math Analysis</item>
+        <item>Business Mathematics</item>
+
+
+
+        <item>Naval Science I</item>
+        <item>Naval Science II</item>
+        <item>Naval Science III</item>
+        <item>Naval Science IV</item>
+
+
+        <item>Unified Physical Education</item>
+        <item>Health</item>
+        <item>Independent Living/Family Life and Human Development</item>
+        <item>Team Sports</item>
+        <item>Team Sports II</item>
+        <item>Recreational Sports</item>
+        <item>Recreational Sports II</item>
+        <item>Weight Training and Physical Conditioning I</item>
+        <item>Weight Training and Physical Conditioning II</item>
+        <item>Fitness Fusion</item>
+        <item>Fitness Fusion</item>
+        <item>Basic Athletic Training I</item>
+        <item>Basic Athletic Training II</item>
+
+
+        <item>College Entrance Exams Preparation</item>
+        <item>Seminar for Advanced Studies</item>
+        <item>Honors Writing for Advanced Courses and College</item>
+        <item>Strategies for Self Determination</item>
+        <item>Strategies for Daily Living</item>
+        <item>Social Skills</item>
+        <item>Freshman Seminar</item>
+        <item>Honors Introduction to Philosophical Thought</item>
+
+
+        <item>Earth Science</item>
+        <item>Honors Earth Science</item>
+        <item>Biology</item>
+        <item>Honors Biology</item>
+        <item>Advanced Placement Biology</item>
+        <item>Biology Laboratory</item>
+        <item>Honors Chemistry</item>
+        <item>Advanced Placement Chemistry</item>
+        <item>Chemistry Laboratory</item>
+        <item>Honors Physics</item>
+        <item>Accelerated PhysChem</item>
+        <item>AP Physics C: Mechanics</item>
+        <item>AP Physics C: Electricity and Magnetism</item>
+        <item>AP Physics 1</item>
+        <item>AP Physics 2</item>
+        <item>Honors Environmental Science</item>
+        <item>Advanced Placement Environmental Science</item>
+        <item>Environmental Science Laboratory</item>
+        <item>Matter and Energy</item>
+
+
+
+        <item>Modern World History</item>
+        <item>Honors Modern World History</item>
+        <item>Advanced Placement World History</item>
+        <item>United States History</item>
+        <item>Honors United States History</item>
+        <item>Advanced Placement United States History</item>
+        <item>American Government</item>
+        <item>Honors American Government</item>
+        <item>Advanced Placement United States Government and Politics</item>
+        <item>Advanced Placement European History</item>
+        <item>ICONS Global Studies</item>
+        <item>Advanced Placement Human Geography</item>
+        <item>African-American Studies</item>
+        <item>Psychology</item>
+        <item>Advanced Placement Psychology</item>
+        <item>Sociology</item>
+        <item>Cultural Anthropology</item>
+        <item>Archeology</item>
+        <item>Women\'s History</item>
+        <item>Sports in Society</item>
+        <item>History of the North American Indian</item>
+        <item>Community Service—Independent Study</item>
+        <item>Service Learning Independent Study</item>
+
+
+        <item>Foundations of Technology</item>
+        <item>Introduction to Engineering Design</item>
+        <item>Core Technologies and The Design World</item>
+        <item>Technology Design and Development</item>
+
+
+        <item>French I</item>
+        <item>French II</item>
+        <item>French III</item>
+        <item>French IV</item>
+        <item>Advanced French</item>
+        <item>Advanced Placement French Language and Culture</item>
+        <item>German I</item>
+        <item>German II</item>
+        <item>German III</item>
+        <item>German IV</item>
+        <item>Latin</item>
+        <item>Russian</item>
+        <item>Spanish I</item>
+        <item>Spanish II</item>
+        <item>Spanish III</item>
+        <item>Spanish IV</item>
+        <item>Advanced Spanish</item>
+        <item>Advanced Placement Spanish Language and Culture</item>
+        <item>English to Speakers of Other Languages</item>
+        <item>American Sign Language I</item>
+        <item>American Sign Language II</item>
+        <item>American Sign Language III</item>
+        <item>American Sign Language IV</item>
+
+
+    </string-array>
+</resources>

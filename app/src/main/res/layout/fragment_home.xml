@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,24 +13,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="center"
-        android:src="@drawable/fall_nature" />
+        android:src="@drawable/fall_nature"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-30dp" />
 
-    <TextView
-        android:id="@+id/quoteTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/quote_background"
-        android:lineSpacingExtra="4sp"
-        android:padding="8sp"
-        android:text="“Much of the stress that people feel doesn\'t come from having too much to do. It comes from not finishing what they\'ve started.” \n– David Allen"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.01999998" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/home_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/quoteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/quote_background"
+                android:lineSpacingExtra="4sp"
+                android:padding="8sp"
+                android:text="“Much of the stress that people feel doesn\'t come from having too much to do. It comes from not finishing what they\'ve started.” \n– David Allen"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+<!--            <fragment-->
+<!--                android:id="@+id/fragment_mood_tracker"-->
+<!--                android:name="com.example.myapplication.ui.home.MoodTrackerFragment"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="82dp"-->
+<!--                android:layout_marginTop="16dp"/>-->
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

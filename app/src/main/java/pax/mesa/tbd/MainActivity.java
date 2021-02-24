@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import pax.mesa.tbd.preferences.SettingsFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.ActionMenuItem;
 import androidx.appcompat.widget.ActionMenuView;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -28,6 +30,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import pax.mesa.tbd.ui.home.HomeFragmentDirections;
 import pax.mesa.tbd.ui.login.LoginFragmentDirections;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,22 +63,74 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_login, R.id.nav_create_account, R.id.nav_home, R.id.nav_forums, R.id.nav_meditation)
-                .setDrawerLayout(drawer)
-                .build();
+                R.id.nav_login, R.id.nav_create_account, R.id.nav_home, R.id.nav_forums, R.id.nav_meditation,
+                R.id.nav_settings).setDrawerLayout(drawer).build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        loadData();
     }
 
+    // Loads the required stored data
+    // Currently includes mood tracker and daily quote data
+    private void loadData(){
+        // Mood check data
+        Prefs.lastMoodCheck = Calendar.getInstance().getTime();
+        Prefs.lastMoodCheck.setYear(0);// Initialize data as a while ago
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy,kk");
+        try {
+            String filename = getFilesDir().getPath() + "/mood_tracker.txt";
+            FileInputStream stream = new FileInputStream(filename);
+            while (stream.read() != -1){
+
+            }
+            stream.skip(-16);
+            byte[] data = new byte[16];
+            stream.read(data, 0, 16);
+            String stringData = new String(data, Charset.defaultCharset());
+
+            Date date = dateFormat.parse(stringData.substring(2,15));
+            Prefs.lastMoodCheck = date;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // Daily quote data
+        String last_update = Prefs.retrieveData(getApplicationContext(),"last_quote_update");
+        Prefs.lastQuote = Prefs.retrieveData(getApplicationContext(),"last_quote");
+        if(last_update.equals("no_data_found")){
+            last_update = "0";
+            Prefs.lastQuoteUpdate = Calendar.getInstance().getTime();
+            Prefs.lastQuoteUpdate.setYear(0);
+        }
+        else {
+            try {
+                Prefs.lastQuoteUpdate = dateFormat.parse(last_update);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        if(SettingsFragment.isDarkTheme(getApplicationContext())){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -105,5 +167,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+
+
     }
 }

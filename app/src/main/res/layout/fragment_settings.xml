@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingTop="20dp"
+        android:text="Information"
+        android:textColor="@color/teal_700" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="60dp"
+        android:paddingTop="10dp"
+        android:paddingRight="60dp">
+
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="@string/tag_l_first"
+            android:maxLines="1"/>
+
+        <EditText
+            android:id="@+id/firstNameEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            android:text="" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="60dp"
+        android:paddingTop="10dp"
+        android:paddingRight="60dp">
+
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:maxLines="1"
+            android:text="@string/tag_l_last"/>
+
+        <EditText
+            android:id="@+id/lastNameEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            android:text="" />
+
+    </LinearLayout>
+
+    <Switch
+        android:id="@+id/darkModeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="60dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp"
+        android:text="Dark Mode" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingTop="20dp"
+        android:text="Classes"
+        android:textColor="@color/teal_700" />
+
+    <LinearLayout
+        android:id="@+id/classesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="?android:listDivider"
+        android:dividerPadding="5dp"
+        android:orientation="vertical"
+        android:paddingLeft="60dp"
+        android:paddingTop="10dp"
+        android:paddingRight="60dp"
+        android:showDividers="middle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5" />
+
+        <Button
+            android:id="@+id/addClassesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="11dp"
+            android:paddingLeft="11dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:minWidth="1dp"
+            android:minHeight="1dp"
+            android:text="Add"
+            android:textSize="10sp"
+            android:layout_marginRight="10dp"/>
+
+        <Button
+            android:id="@+id/removeClassesBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="0"
+            android:minWidth="1dp"
+            android:minHeight="1dp"
+            android:paddingLeft="11dp"
+            android:paddingRight="11dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="Remove"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingTop="20dp"
+        android:text="Mood Tracker"
+        android:textColor="@color/teal_700" />
+
+</LinearLayout>

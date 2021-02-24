@@ -15,7 +15,6 @@
     <string name="email_tag">Email</string>
     <string name="create_account"><u>Need an account?</u></string>
     <string name="forgot_pass"><u>Forgot password?</u></string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tag_email_addy">Enter an email address</string>
     <string name="tag_cr_password">Enter a password</string>
@@ -31,4 +30,20 @@
     <string name="tag_l_last">Last Name</string>
     <string name="tag_classes">Classes</string>
     <string name="tag_choose_classes">Choose Classes</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>
