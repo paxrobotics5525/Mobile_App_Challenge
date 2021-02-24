@@ -56,11 +56,13 @@ public class SettingsFragment extends Fragment {
         darkModeSwitch.setChecked(Prefs.getPrefs(getContext()).getBoolean("dark_mode", true));
 
         String data = Prefs.getPrefs(getContext()).getString("classes", "");
-        if(data != null){
+        if((data != null) && (data != "\t")){
             myClasses = new LinkedList<String>(Arrays.asList(data.split("\t")));
             updateClasses();
         }
-
+        else{
+            myClasses = new LinkedList<String>(Arrays.asList(""));
+        }
         return root;
     }
 

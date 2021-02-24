@@ -138,14 +138,4 @@
             android:text="Remove"
             android:textSize="10sp" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="30dp"
-        android:paddingTop="20dp"
-        android:text="Mood Tracker"
-        android:textColor="@color/teal_700" />
-
 </LinearLayout>
