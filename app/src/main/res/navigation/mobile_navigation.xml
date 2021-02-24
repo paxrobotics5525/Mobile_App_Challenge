@@ -3,27 +3,65 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_home">
+    app:startDestination="@id/nav_login">
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.myapplication.ui.home.HomeFragment"
+        android:name="pax.mesa.tbd.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_to_login"
+            app:destination="@id/nav_login" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_forums"
-        android:name="com.example.myapplication.ui.forums.ForumsFragment"
+        android:name="pax.mesa.tbd.ui.forums.ForumsFragment"
         android:label="@string/menu_forums"
         tools:layout="@layout/fragment_forums" />
 
     <fragment
         android:id="@+id/nav_meditation"
-        android:name="com.example.myapplication.ui.meditation.MeditationFragment"
+        android:name="pax.mesa.tbd.ui.meditation.MeditationFragment"
         android:label="@string/menu_meditation"
         tools:layout="@layout/fragment_meditation" />
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.myapplication.preferences.SettingsFragment"
+        android:name="pax.mesa.tbd.preferences.SettingsFragment"
         android:label="@string/menu_settings" />
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="pax.mesa.tbd.ui.login.LoginFragment"
+        android:label="@string/login" >
+        <action
+            android:id="@+id/action_login_to_create"
+            app:destination="@id/nav_create_account" />
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_login_to_forgot"
+            app:destination="@id/nav_forgot" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_create_account"
+        android:name="pax.mesa.tbd.ui.createAccount.CreateAccountFragment"
+        android:label="Create Account" >
+        <action
+            android:id="@+id/action_create_to_home"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_create_to_login"
+            app:destination="@id/nav_login" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_forgot"
+        android:name="pax.mesa.tbd.ui.login.ForgotPassFragment"
+        android:label="Password Recovery"
+        tools:layout="@layout/fragment_forgot_pass" >
+        <action
+            android:id="@+id/action_forgot_to_login"
+            app:destination="@id/nav_login" />
+    </fragment>
 </navigation>

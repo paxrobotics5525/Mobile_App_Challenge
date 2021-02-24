@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package pax.mesa.tbd;
 import android.content.Context;
 import android.content.SharedPreferences;
 

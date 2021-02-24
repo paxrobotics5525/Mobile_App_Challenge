@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.home;
+package pax.mesa.tbd.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.R;
-import com.example.myapplication.Prefs;
+
+import pax.mesa.tbd.Prefs;
 
 import java.text.SimpleDateFormat;
 import java.util.Random;
@@ -29,7 +30,6 @@ public class HomeFragment extends Fragment{
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment{
 
         // Check whether or not to take a mood check
         if(getTimeDifference(Calendar.getInstance().getTime(), Prefs.lastMoodCheck) > 24){
-            addFragment(new MoodTrackerFragment());
+            addFragment(new com.example.myapplication.ui.home.MoodTrackerFragment());
         }
 
         return root;

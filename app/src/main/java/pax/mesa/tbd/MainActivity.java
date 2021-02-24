@@ -1,16 +1,26 @@
-package com.example.myapplication;
+package pax.mesa.tbd;
 
 import android.os.Bundle;
+import android.view.ActionMode;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.Toast;
 
-import com.example.myapplication.preferences.SettingsFragment;
+import pax.mesa.tbd.preferences.SettingsFragment;
+import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.menu.ActionMenuItem;
+import androidx.appcompat.widget.ActionMenuView;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -26,10 +36,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import pax.mesa.tbd.ui.home.HomeFragmentDirections;
+import pax.mesa.tbd.ui.login.LoginFragmentDirections;
 
 public class MainActivity extends AppCompatActivity{
 
     private AppBarConfiguration mAppBarConfiguration;
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +51,9 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
+
+        mAuth = FirebaseAuth.getInstance();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,13 +61,15 @@ public class MainActivity extends AppCompatActivity{
                         .setAction("Action", null).show();
             }
         });
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_forums, R.id.nav_meditation, R.id.nav_settings)
+                R.id.nav_login, R.id.nav_create_account, R.id.nav_home, R.id.nav_forums, R.id.nav_meditation, R.id.nav_settings)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -120,11 +139,33 @@ public class MainActivity extends AppCompatActivity{
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.action_logout) {
+            logoutUser();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void logoutUser() {
+        if(mAuth.getCurrentUser() != null) {
+            //Log out
+            mAuth.signOut();
+            //Display log out message
+            Toast.makeText(this, "Successfully logged out.", Toast.LENGTH_SHORT).show();
+            //Go to login screen
+            NavDirections action = HomeFragmentDirections.actionHomeToLogin();
+            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(action);
+        } else {
+            Toast.makeText(this, "You are not logged in.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-
-
     }
 }

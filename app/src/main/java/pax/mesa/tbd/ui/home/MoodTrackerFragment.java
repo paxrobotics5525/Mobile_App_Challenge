@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+
+import pax.mesa.tbd.Prefs;
+
 import com.example.myapplication.R;
-import com.example.myapplication.Prefs;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.FileNotFoundException;

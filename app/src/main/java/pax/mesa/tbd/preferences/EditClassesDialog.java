@@ -1,4 +1,4 @@
-package com.example.myapplication.preferences;
+package pax.mesa.tbd.preferences;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -20,6 +20,8 @@ import androidx.fragment.app.DialogFragment;
 import com.example.myapplication.R;
 
 import java.util.List;
+
+import pax.mesa.tbd.preferences.SettingsFragment;
 
 public class EditClassesDialog extends Dialog {
     private EditText searchEdit;

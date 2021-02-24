@@ -1,4 +1,4 @@
-package com.example.myapplication.preferences;
+package pax.mesa.tbd.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,7 +17,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.Prefs;
+
+import pax.mesa.tbd.Prefs;
 
 import java.util.Arrays;
 import java.util.LinkedList;

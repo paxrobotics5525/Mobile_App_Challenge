@@ -1,9 +1,10 @@
-package com.example.myapplication.preferences;
+package pax.mesa.tbd.preferences;
 
 import android.content.Context;
+import android.preference.Preference;
 import android.util.AttributeSet;
 
-import androidx.preference.Preference;
+import android.preference.Preference;
 
 import com.example.myapplication.R;
 
