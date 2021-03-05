@@ -85,7 +85,6 @@ public class SettingsFragment extends Fragment {
             else if(view.getId() == addClasses.getId()){
                 EditClassesDialog newFragment = new EditClassesDialog(getContext(), getResources().getStringArray(R.array.classes), true, SettingsFragment.this);
                 newFragment.show();
-
             }
             else if(view.getId() == removeClasses.getId()){
                 EditClassesDialog newFragment = new EditClassesDialog(getContext(), myClasses.toArray(new String[0]),  false, SettingsFragment.this);

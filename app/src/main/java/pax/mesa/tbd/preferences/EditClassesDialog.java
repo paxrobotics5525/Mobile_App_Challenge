@@ -21,6 +21,8 @@ import com.example.myapplication.R;
 
 import java.util.List;
 
+import pax.mesa.tbd.ui.createAccount.CreateAccountFragment;
+
 public class EditClassesDialog extends Dialog {
     private EditText searchEdit;
     private ListView classesList;
@@ -50,6 +52,32 @@ public class EditClassesDialog extends Dialog {
             }
         });
     }
+
+    public EditClassesDialog(Context context, String[] list, Boolean adding, CreateAccountFragment makeAccount) {
+        super(context);
+        /** Design the dialog in main.xml file */
+        setContentView(R.layout.edit_classes);
+        setTitle("Choose A Class");
+        searchEdit = (EditText) findViewById(R.id.searchEdit);
+        searchEdit.addTextChangedListener(filterTextWatcher);
+        classesList = (ListView) findViewById(R.id.classesList);
+        adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, list);
+        classesList.setAdapter(adapter);
+        classesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                //Log.d("TAG", "Selected Item is = "+classesList.getItemAtPosition(position));
+                if(adding) {
+                    makeAccount.addClass(classesList.getItemAtPosition(position).toString());
+                }
+                else {
+                    //makeAccount.removeClass(classesList.getItemAtPosition(position).toString());
+                }
+                dismiss();
+            }
+        });
+    }
+
     private TextWatcher filterTextWatcher = new TextWatcher() {
 
         public void afterTextChanged(Editable s) {

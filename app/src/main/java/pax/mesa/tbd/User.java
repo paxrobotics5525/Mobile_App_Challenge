@@ -1,21 +1,21 @@
 package pax.mesa.tbd;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     public String fName;
     public String lName;
     public String email;
-    //public ArrayList classes; // this might be wrong
+    public List classes;
 
     public User() {
 
     }
 
-    public User(String FName, String LName, String Email) {
+    public User(String FName, String LName, String Email, List Classes) {
         this.fName = FName;
         this.lName = LName;
         this.email = Email;
-        //this.classes = Classes;
+        this.classes = Classes;
     }
 }
