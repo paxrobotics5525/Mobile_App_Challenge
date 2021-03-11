@@ -3,6 +3,7 @@ package pax.mesa.tbd.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,15 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import pax.mesa.tbd.Prefs;
+import pax.mesa.tbd.User;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -34,6 +43,10 @@ public class SettingsFragment extends Fragment {
 
     private List<String> myClasses;
 
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private String userID;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
@@ -43,6 +56,11 @@ public class SettingsFragment extends Fragment {
         lastNameEdit = (EditText) root.findViewById(R.id.lastNameEdit);
         darkModeSwitch = (Switch) root.findViewById(R.id.darkModeSwitch);
         classesLayout = (LinearLayout) root.findViewById(R.id.classesLayout);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        userID = mAuth.getCurrentUser().getUid();
 
         addClasses.setOnClickListener(onClick);
         removeClasses.setOnClickListener(onClick);
@@ -115,6 +133,9 @@ public class SettingsFragment extends Fragment {
             classesLayout.addView(text);
         }
         Prefs.getPrefs(getContext()).edit().putString("classes", data).apply();
+
+        //Push updated classes to db
+        mDatabase.child("users").child(userID).child("classes").setValue(myClasses);
     }
 
     // Returns what classes the user wants to be included in, ordered

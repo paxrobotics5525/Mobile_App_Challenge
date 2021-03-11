@@ -2,6 +2,7 @@ package pax.mesa.tbd.ui.login;
 
 import android.app.Notification;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

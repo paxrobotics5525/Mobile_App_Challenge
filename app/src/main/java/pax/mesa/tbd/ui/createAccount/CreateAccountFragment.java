@@ -71,14 +71,14 @@ public class CreateAccountFragment extends Fragment {
 
         classesLayout = (LinearLayout) root.findViewById(R.id.classesLayout);
 
-        EditText targetEmail = (EditText) root.findViewById(R.id.i_reg_email);
-        EditText targetPass = (EditText) root.findViewById(R.id.i_reg_password);
-        EditText targetConPass = (EditText) root.findViewById(R.id.i_con_password);
-        EditText userFName = (EditText) root.findViewById(R.id.i_fName);
-        EditText userLName = (EditText) root.findViewById(R.id.i_lName);
+        EditText targetEmail = root.findViewById(R.id.i_reg_email);
+        EditText targetPass = root.findViewById(R.id.i_reg_password);
+        EditText targetConPass = root.findViewById(R.id.i_con_password);
+        EditText userFName = root.findViewById(R.id.i_fName);
+        EditText userLName = root.findViewById(R.id.i_lName);
 
-        Button buttonReg = (Button) root.findViewById(R.id.b_reg_account);
-        Button buttonClasses = (Button) root.findViewById(R.id.b_choose_classes);
+        Button buttonReg = root.findViewById(R.id.b_reg_account);
+        Button buttonClasses = root.findViewById(R.id.b_choose_classes);
 
         buttonClasses.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +124,7 @@ public class CreateAccountFragment extends Fragment {
 
                     //Add user to database with information
                     String randID = "user" + (int) (Math.random() * 10000);
-                    createUser(randID, Email, fName, lName, Classes);
+                    createUser(Email, fName, lName, Classes);
 
                     //Go to home screen
                     NavDirections action = CreateAccountFragmentDirections.actionCreateToHome();
@@ -136,10 +136,11 @@ public class CreateAccountFragment extends Fragment {
         });
     }
 
-    public void createUser(String userID, String email, String fName, String lName, List Classes) {
+    public void createUser(String email, String fName, String lName, List Classes) {
+        FirebaseUser fUser = mAuth.getCurrentUser();
         User user = new User(fName, lName, email, Classes);
 
-        mData.child("users").child(userID).setValue(user);
+        mData.child("users").child(fUser.getUid()).setValue(user);
     }
 
     //Literally just yoinked from Ben's settings frag
