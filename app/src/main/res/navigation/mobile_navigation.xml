@@ -19,7 +19,11 @@
         android:id="@+id/nav_forums"
         android:name="pax.mesa.tbd.ui.forums.ForumsFragment"
         android:label="@string/menu_forums"
-        tools:layout="@layout/fragment_forums" />
+        tools:layout="@layout/fragment_forums">
+        <action
+            android:id="@+id/action_forums_to_class"
+            app:destination="@id/classHomeScreen" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_meditation"
@@ -64,4 +68,28 @@
             android:id="@+id/action_forgot_to_login"
             app:destination="@id/nav_login" />
     </fragment>
+    <fragment
+        android:id="@+id/classHomeScreen"
+        android:name="pax.mesa.tbd.ui.forums.ClassHomeScreen"
+        android:label="{className}"
+        tools:layout="@layout/fragment_class_home_screen" >
+        <argument
+            android:name="className"
+            android:defaultValue="null"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_classHomeScreen_to_post"
+            app:destination="@id/post" />
+    </fragment>
+    <fragment
+        android:id="@+id/post"
+        android:name="com.example.myapplication.Post"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" >
+        <argument
+            android:name="post_id"
+            app:argType="integer" />
+    </fragment>
+
+
 </navigation>
