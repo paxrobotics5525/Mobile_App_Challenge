@@ -50,12 +50,12 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
-        addClasses = (Button) root.findViewById(R.id.addClassesButton);
-        removeClasses = (Button) root.findViewById(R.id.removeClassesBtn);
-        firstNameEdit = (EditText) root.findViewById(R.id.firstNameEdit);
-        lastNameEdit = (EditText) root.findViewById(R.id.lastNameEdit);
-        darkModeSwitch = (Switch) root.findViewById(R.id.darkModeSwitch);
-        classesLayout = (LinearLayout) root.findViewById(R.id.classesLayout);
+        addClasses = root.findViewById(R.id.addClassesButton);
+        removeClasses = root.findViewById(R.id.removeClassesBtn);
+        firstNameEdit = root.findViewById(R.id.firstNameEdit);
+        lastNameEdit = root.findViewById(R.id.lastNameEdit);
+        darkModeSwitch = root.findViewById(R.id.darkModeSwitch);
+        classesLayout = root.findViewById(R.id.classesLayout);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -74,7 +74,7 @@ public class SettingsFragment extends Fragment {
 
         String data = Prefs.getPrefs(getContext()).getString("classes", "");
         if(data != null){
-            myClasses = new LinkedList<String>(Arrays.asList(data.split("\t")));
+            myClasses = new LinkedList<>(Arrays.asList(data.split("\t")));
             updateClasses();
         }
 

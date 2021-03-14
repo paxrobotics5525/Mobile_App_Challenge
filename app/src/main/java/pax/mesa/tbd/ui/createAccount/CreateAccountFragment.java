@@ -123,7 +123,6 @@ public class CreateAccountFragment extends Fragment {
                     Toast.makeText(getActivity(), "Successfully created account.", Toast.LENGTH_SHORT).show();
 
                     //Add user to database with information
-                    String randID = "user" + (int) (Math.random() * 10000);
                     createUser(Email, fName, lName, Classes);
 
                     //Go to home screen
