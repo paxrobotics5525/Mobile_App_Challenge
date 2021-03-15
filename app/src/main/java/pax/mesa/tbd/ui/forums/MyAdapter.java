@@ -11,17 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 
 import java.util.List;
+import java.util.Map;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private List<Post> mData;
+    private List<Map<String, Object>> postValues;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    MyAdapter(Context context, List<Post> data) {
+    MyAdapter(Context context, List<Map<String, Object>> data) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.postValues = data;
     }
 
     // inflates the row layout from xml when needed
@@ -34,14 +35,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String title = mData.get(position).title;
+        String title = postValues.get(position).get("title").toString();
         holder.myTextView.setText(title);
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        return postValues.size();
     }
 
 

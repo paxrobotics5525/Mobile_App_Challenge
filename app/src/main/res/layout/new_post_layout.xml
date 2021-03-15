@@ -18,13 +18,14 @@
             android:text="Title: " />
 
         <EditText
-            android:id="@+id/title_edit"
+            android:id="@+id/i_post_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="text"
             android:maxLength="30"
-            android:text="" />
+            android:text=""
+            android:autofillHints="" />
 
     </LinearLayout>
 
@@ -42,13 +43,14 @@
             android:text="Content: " />
 
         <EditText
-            android:id="@+id/editTextTextMultiLine2"
+            android:id="@+id/i_post_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="start|top"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:autofillHints="" />
 
     </LinearLayout>
 </LinearLayout>

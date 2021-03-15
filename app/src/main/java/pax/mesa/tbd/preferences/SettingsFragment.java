@@ -110,7 +110,6 @@ public class SettingsFragment extends Fragment {
             else if(view.getId() == removeClasses.getId()){
                 EditClassesDialog newFragment = new EditClassesDialog(getContext(), myClasses.toArray(new String[0]),  false, SettingsFragment.this);
                 newFragment.show();
-
             }
         }
     };

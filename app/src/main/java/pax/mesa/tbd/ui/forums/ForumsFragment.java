@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,18 +50,21 @@ public class ForumsFragment extends Fragment {
     private ListView listView;
     private ListView postsList;
     private String[] classes;
+    private int classIndex;
+    private int postIndex;
+
     ArrayAdapter<String> adapter = null;
 
     private DatabaseReference mData;
     private DatabaseReference mPost;
     private FirebaseAuth mAuth;
 
-    public List<Map<String, Object>> postList = new ArrayList<>();
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         forumsViewModel = new ViewModelProvider(this).get(ForumsViewModel.class);
         root = inflater.inflate(R.layout.fragment_forums, container, false);
+
+        mAuth = FirebaseAuth.getInstance();
 
         String list = Prefs.getPrefs(getContext()).getString("classes", "");
         classes = list.split("\t");
@@ -74,35 +79,12 @@ public class ForumsFragment extends Fragment {
         }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                PostMethods.displayPosts(listView, position, postList);
-
                 ForumsFragmentDirections.ActionForumsToClass action = ForumsFragmentDirections.actionForumsToClass();
                 action.setClassName(classes[position]);
                 Navigation.findNavController(root).navigate(action);
-            }
-        });
-
-        mData = FirebaseDatabase.getInstance().getReference();
-        mPost = mData.child("posts");
-
-        mAuth = FirebaseAuth.getInstance();
-
-        //This is what gets all the post info from the db
-        mPost.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                postList.clear();
-                for(DataSnapshot data : snapshot.getChildren()) {
-                    Map<String, Object> post = (Map) data.getValue();
-                    postList.add(post);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w("[POSTS]", "Error getting posts");
             }
         });
 
