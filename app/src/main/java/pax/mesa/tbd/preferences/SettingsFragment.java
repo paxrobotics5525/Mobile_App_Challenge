@@ -3,6 +3,7 @@ package pax.mesa.tbd.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,15 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import pax.mesa.tbd.Prefs;
+import pax.mesa.tbd.User;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -35,15 +43,24 @@ public class SettingsFragment extends Fragment {
 
     private List<String> myClasses;
 
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private String userID;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
-        addClasses = (Button) root.findViewById(R.id.addClassesButton);
-        removeClasses = (Button) root.findViewById(R.id.removeClassesBtn);
-        firstNameEdit = (EditText) root.findViewById(R.id.firstNameEdit);
-        lastNameEdit = (EditText) root.findViewById(R.id.lastNameEdit);
-        darkModeSwitch = (Switch) root.findViewById(R.id.darkModeSwitch);
-        classesLayout = (LinearLayout) root.findViewById(R.id.classesLayout);
+        addClasses = root.findViewById(R.id.addClassesButton);
+        removeClasses = root.findViewById(R.id.removeClassesBtn);
+        firstNameEdit = root.findViewById(R.id.firstNameEdit);
+        lastNameEdit = root.findViewById(R.id.lastNameEdit);
+        darkModeSwitch = root.findViewById(R.id.darkModeSwitch);
+        classesLayout = root.findViewById(R.id.classesLayout);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        userID = mAuth.getCurrentUser().getUid();
 
         addClasses.setOnClickListener(onClick);
         removeClasses.setOnClickListener(onClick);
@@ -97,6 +114,7 @@ public class SettingsFragment extends Fragment {
             }
         }
     };
+
     public void addClass(String Class){
         myClasses.add(Class);
         updateClasses();
@@ -105,6 +123,7 @@ public class SettingsFragment extends Fragment {
         myClasses.remove(Class);
         updateClasses();
     }
+
     private void updateClasses(){
         classesLayout.removeAllViews();
         String data = "";
@@ -117,7 +136,11 @@ public class SettingsFragment extends Fragment {
             classesLayout.addView(text);
         }
         Prefs.getPrefs(getContext()).edit().putString("classes", data).apply();
+
+        //Push updated classes to db
+        mDatabase.child("users").child(userID).child("classes").setValue(myClasses);
     }
+
     // Returns what classes the user wants to be included in, ordered
     static public String[] getClasses(Context context){
         SharedPreferences preferences = Prefs.getPrefs(context);
@@ -127,14 +150,17 @@ public class SettingsFragment extends Fragment {
         }
         return null;
     }
+
     static public String getFirstName(Context context){
         SharedPreferences preferences = Prefs.getPrefs(context);
         return preferences.getString("first_name", "default name");
     }
+
     static public String getLastName(Context context){
         SharedPreferences preferences = Prefs.getPrefs(context);
         return preferences.getString("last_name", "default name");
     }
+
     static public Boolean isDarkTheme(Context context){
         SharedPreferences preferences = Prefs.getPrefs(context);
         return preferences.getBoolean("dark_mode", true);
@@ -145,6 +171,7 @@ public class SettingsFragment extends Fragment {
         preferences.edit().putString("first_name", firstName).apply();
         preferences.edit().putString("last_name", lastName).apply();
     }
+
     static void setClasses(Context context, String[] classes){
         SharedPreferences preferences = Prefs.getPrefs(context);
         String data = "";
@@ -153,6 +180,7 @@ public class SettingsFragment extends Fragment {
         }
         Prefs.getPrefs(context).edit().putString("classes", data).apply();
     }
+
     static void setDarkTheme(Context context, Boolean dark){
         SharedPreferences preferences = Prefs.getPrefs(context);
         preferences.edit().putBoolean("dark_mode", dark).apply();

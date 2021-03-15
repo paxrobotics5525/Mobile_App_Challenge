@@ -8,12 +8,20 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -27,9 +35,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 import pax.mesa.tbd.MainActivity;
+import pax.mesa.tbd.Prefs;
 import pax.mesa.tbd.User;
 import pax.mesa.tbd.preferences.EditClassesDialog;
 import pax.mesa.tbd.preferences.SettingsFragment;
@@ -39,6 +51,10 @@ public class CreateAccountFragment extends Fragment {
     private CreateAccountViewModel createAccountViewModel;
     private FirebaseAuth mAuth;
     private DatabaseReference mData;
+
+    private LinearLayout classesLayout;
+
+    private List<String> myClasses = new ArrayList<>();
 
     public CreateAccountFragment() {
         super(R.layout.fragment_create_account);
@@ -53,20 +69,24 @@ public class CreateAccountFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_create_account, container, false);
 
-        EditText targetEmail = (EditText) root.findViewById(R.id.i_reg_email);
-        EditText targetPass = (EditText) root.findViewById(R.id.i_reg_password);
-        EditText targetConPass = (EditText) root.findViewById(R.id.i_con_password);
-        EditText userFName = (EditText) root.findViewById(R.id.i_fName);
-        EditText userLName = (EditText) root.findViewById(R.id.i_lName);
+        classesLayout = (LinearLayout) root.findViewById(R.id.classesLayout);
 
-        Button buttonReg = (Button) root.findViewById(R.id.b_reg_account);
-        Button buttonClasses = (Button) root.findViewById(R.id.b_choose_classes);
+        EditText targetEmail = root.findViewById(R.id.i_reg_email);
+        EditText targetPass = root.findViewById(R.id.i_reg_password);
+        EditText targetConPass = root.findViewById(R.id.i_con_password);
+        EditText userFName = root.findViewById(R.id.i_fName);
+        EditText userLName = root.findViewById(R.id.i_lName);
+
+        Button buttonReg = root.findViewById(R.id.b_reg_account);
+        Button buttonClasses = root.findViewById(R.id.b_choose_classes);
 
         buttonClasses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //go to classes screen
-
+                //add classes dialog
+                EditClassesDialog newFragment = new EditClassesDialog(getContext(),
+                        getResources().getStringArray(R.array.classes), true, CreateAccountFragment.this);
+                newFragment.show();
             }
         });
 
@@ -78,6 +98,7 @@ public class CreateAccountFragment extends Fragment {
                 String finalPass = targetConPass.getText().toString();
                 String firstName = userFName.getText().toString();
                 String lastName = userLName.getText().toString();
+                List userClasses = myClasses;
 
                 if(email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     Toast.makeText(getActivity(), "Please enter a valid email.", Toast.LENGTH_SHORT).show();
@@ -86,7 +107,7 @@ public class CreateAccountFragment extends Fragment {
                 } else if(!finalPass.equals(password)) {
                     Toast.makeText(getActivity(), "The entered passwords do not match.", Toast.LENGTH_SHORT).show();
                 } else {
-                    doRegister(email, finalPass, firstName, lastName);
+                    doRegister(email, finalPass, firstName, lastName, userClasses);
                 }
             }
         });
@@ -94,7 +115,7 @@ public class CreateAccountFragment extends Fragment {
         return root;
     }
 
-    public void doRegister(String Email, String Password, String fName, String lName) {
+    public void doRegister(String Email, String Password, String fName, String lName, List Classes) {
         mAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -102,8 +123,7 @@ public class CreateAccountFragment extends Fragment {
                     Toast.makeText(getActivity(), "Successfully created account.", Toast.LENGTH_SHORT).show();
 
                     //Add user to database with information
-                    String randID = "user" + (int) (Math.random() * 10000);
-                    createUser(randID, Email, fName, lName);
+                    createUser(Email, fName, lName, Classes);
 
                     //Go to home screen
                     NavDirections action = CreateAccountFragmentDirections.actionCreateToHome();
@@ -115,9 +135,30 @@ public class CreateAccountFragment extends Fragment {
         });
     }
 
-    public void createUser(String userID, String email, String fName, String lName) {
-        User user = new User(fName, lName, email);
+    public void createUser(String email, String fName, String lName, List Classes) {
+        FirebaseUser fUser = mAuth.getCurrentUser();
+        User user = new User(fName, lName, email, Classes);
 
-        mData.child("users").child(userID).setValue(user);
+        mData.child("users").child(fUser.getUid()).setValue(user);
+    }
+
+    //Literally just yoinked from Ben's settings frag
+    public void addClass(String Class){
+        myClasses.add(Class);
+        updateClasses();
+    }
+
+    /*public void removeClass(String Class){
+        myClasses.remove(Class);
+        updateClasses();
+    }*/
+
+    private void updateClasses(){
+        String data = "";
+        for(String doClass : myClasses){
+            data += doClass + "\t";
+        }
+
+        Prefs.getPrefs(getContext()).edit().putString("classes", data).apply();
     }
 }
