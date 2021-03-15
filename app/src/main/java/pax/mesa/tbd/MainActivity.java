@@ -52,11 +52,7 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         mAuth = FirebaseAuth.getInstance();
-
-
-
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -104,8 +100,8 @@ public class MainActivity extends AppCompatActivity{
         }
 
         // Daily quote data
-        String last_update = Prefs.retriveData(getApplicationContext(),"last_quote_update");
-        Prefs.lastQuote = Prefs.retriveData(getApplicationContext(),"last_quote");
+        String last_update = Prefs.retrieveData(getApplicationContext(),"last_quote_update");
+        Prefs.lastQuote = Prefs.retrieveData(getApplicationContext(),"last_quote");
         if(last_update.equals("no_data_found")){
             last_update = "0";
             Prefs.lastQuoteUpdate = Calendar.getInstance().getTime();

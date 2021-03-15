@@ -64,9 +64,10 @@ public class HomeFragment extends Fragment{
 
     // Return the time difference in hours
     public long getTimeDifference(Date firstDate, Date secondDate){
-        long diff = firstDate.getTime() - secondDate.getTime();
+        /*long diff = firstDate.getTime() - secondDate.getTime();
         long millisInHour = 60*60*1000;
-        return diff/millisInHour;
+        return diff/millisInHour;*/
+        return 24; //This was broken for me -E
     }
 
     // Add a fragment to the bottom of the vertical linear layout

@@ -1,9 +1,18 @@
 package pax.mesa.tbd;
 
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PostMethods {
@@ -28,5 +37,14 @@ public class PostMethods {
         childUpdates.put("/posts/" + pID + "/" + "/replies/" + key, replyValues);
 
         data.updateChildren(childUpdates);
+    }
+
+    public static void displayPosts(ListView view, int index, List<Map<String, Object>> posts) {
+        //display the posts about a class once the user clicks on that class
+        for(int i = 0; i < posts.size(); i++) {
+            if (view.getItemAtPosition(index).toString().equals(posts.get(i).get("class").toString())) {
+                Log.d("[FORUMS]", "IN CORRECT CLASS");
+            }
+        }
     }
 }

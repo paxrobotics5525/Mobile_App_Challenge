@@ -7,11 +7,12 @@
 
 
     <FrameLayout
+        android:id="@+id/post_list_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/class_home_recyclerView"
+            android:id="@+id/class_posts_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

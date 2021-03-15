@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavAction;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -44,6 +46,7 @@ public class ForumsFragment extends Fragment {
     private ForumsViewModel forumsViewModel;
     private View root;
     private ListView listView;
+    private ListView postsList;
     private String[] classes;
     ArrayAdapter<String> adapter = null;
 
@@ -51,7 +54,7 @@ public class ForumsFragment extends Fragment {
     private DatabaseReference mPost;
     private FirebaseAuth mAuth;
 
-    public List<Map<String, Object>> postList = new ArrayList<Map<String, Object>>();
+    public List<Map<String, Object>> postList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -60,69 +63,46 @@ public class ForumsFragment extends Fragment {
 
         String list = Prefs.getPrefs(getContext()).getString("classes", "");
         classes = list.split("\t");
-        listView = (ListView) root.findViewById(R.id.forums_list);
+        listView = root.findViewById(R.id.forums_list);
+        postsList = root.findViewById(R.id.class_posts_list);
+
         if (list == "") {
             //TODO: Check for no data
-        }
-        else {
-            adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, classes);
+        } else {
+            adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, classes);
             listView.setAdapter(adapter);
         }
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                PostMethods.displayPosts(listView, position, postList);
+
                 ForumsFragmentDirections.ActionForumsToClass action = ForumsFragmentDirections.actionForumsToClass();
                 action.setClassName(classes[position]);
                 Navigation.findNavController(root).navigate(action);
             }
         });
-        View root = inflater.inflate(R.layout.fragment_forums, container, false);
 
         mData = FirebaseDatabase.getInstance().getReference();
         mPost = mData.child("posts");
 
         mAuth = FirebaseAuth.getInstance();
 
-        Button bTestPost = root.findViewById(R.id.b_testPost);
-        Button bTestReply = root.findViewById(R.id.b_testReply);
-
+        //This is what gets all the post info from the db
         mPost.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList.clear();
                 for(DataSnapshot data : snapshot.getChildren()) {
                     Map<String, Object> post = (Map) data.getValue();
-                    //String basic = post.get("title").toString() + " by " + post.get("author").toString();
                     postList.add(post);
-                    Log.d("POSTS", String.valueOf(postList));
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        bTestPost.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
-                LocalDateTime time = LocalDateTime.now();
-
-                PostMethods.doNewPost(mData, "AP Physics 2", mAuth.getCurrentUser(), "Pog", "This is a test.", dateFormat.format(time));
-            }
-        });
-
-        bTestReply.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
-                LocalDateTime time = LocalDateTime.now();
-
-                PostMethods.doNewReply(mData, postList.get(0).get("id").toString(), mAuth.getCurrentUser(), "This is a reply", dateFormat.format(time));
+                Log.w("[POSTS]", "Error getting posts");
             }
         });
 

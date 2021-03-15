@@ -1,30 +1,20 @@
 package pax.mesa.tbd.ui.forums;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.List;
 
 class Post{
     int id;
@@ -56,7 +46,7 @@ public class ClassHomeScreen extends Fragment implements MyAdapter.ItemClickList
         posts = new ArrayList<>();
         loadPosts();
         adapter = new MyAdapter(getContext(), posts);
-        recyclerView = root.findViewById(R.id.class_home_recyclerView);
+        recyclerView = root.findViewById(R.id.class_posts_list);
         recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = root.findViewById(R.id.fab);
