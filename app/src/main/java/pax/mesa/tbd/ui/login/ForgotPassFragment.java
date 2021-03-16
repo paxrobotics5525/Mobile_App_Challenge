@@ -3,6 +3,7 @@ package pax.mesa.tbd.ui.login;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -32,6 +33,9 @@ public class ForgotPassFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_forgot_pass, container, false);
+
+        //show action bar
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
 
         mAuth = FirebaseAuth.getInstance();
 

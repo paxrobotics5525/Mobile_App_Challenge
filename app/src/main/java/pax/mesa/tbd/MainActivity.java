@@ -54,13 +54,16 @@ public class MainActivity extends AppCompatActivity{
 
         mAuth = FirebaseAuth.getInstance();
 
+        //show app bar againnnn
+        this.getSupportActionBar().show();
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_login, R.id.nav_create_account, R.id.nav_home, R.id.nav_forums, R.id.nav_meditation, R.id.nav_settings)
+                R.id.nav_home, R.id.nav_forums, R.id.nav_meditation, R.id.nav_settings)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -146,8 +149,8 @@ public class MainActivity extends AppCompatActivity{
             //Display log out message
             Toast.makeText(this, "Successfully logged out.", Toast.LENGTH_SHORT).show();
             //Go to login screen
-            NavDirections action = HomeFragmentDirections.actionHomeToLogin();
-            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(action);
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+            navController.navigate(R.id.nav_login);
         } else {
             Toast.makeText(this, "You are not logged in.", Toast.LENGTH_SHORT).show();
         }

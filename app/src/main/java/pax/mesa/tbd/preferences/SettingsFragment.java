@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +26,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import pax.mesa.tbd.PostMethods;
 import pax.mesa.tbd.Prefs;
 import pax.mesa.tbd.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class SettingsFragment extends Fragment {
 
@@ -41,9 +45,13 @@ public class SettingsFragment extends Fragment {
     private Switch darkModeSwitch;
     private LinearLayout classesLayout;
 
-    private List<String> myClasses;
+    private List<String> myClasses = new ArrayList<>();
 
     private DatabaseReference mDatabase;
+    private DatabaseReference mClasses;
+    private DatabaseReference mFName;
+    private DatabaseReference mLName;
+    private String classes;
     private FirebaseAuth mAuth;
     private String userID;
 
@@ -59,8 +67,11 @@ public class SettingsFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-
         userID = mAuth.getCurrentUser().getUid();
+
+        mClasses = mDatabase.child("users").child(userID).child("classes");
+        mFName = mDatabase.child("users").child(userID).child("fName");
+        mLName = mDatabase.child("users").child(userID).child("lName");
 
         addClasses.setOnClickListener(onClick);
         removeClasses.setOnClickListener(onClick);
@@ -72,14 +83,67 @@ public class SettingsFragment extends Fragment {
         lastNameEdit.setText(Prefs.getPrefs(getContext()).getString("last_name", ""));
         darkModeSwitch.setChecked(Prefs.getPrefs(getContext()).getBoolean("dark_mode", true));
 
-        String data = Prefs.getPrefs(getContext()).getString("classes", "");
-        if((data != null) && (data != "\t")){
-            myClasses = new LinkedList<String>(Arrays.asList(data.split("\t")));
-            updateClasses();
-        }
-        else{
-            myClasses = new LinkedList<String>(Arrays.asList(""));
-        }
+        //This is what gets all the post info from the db
+        mClasses.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                myClasses.clear(); //empty myClasses so when a class is deleted it doesnt show up again
+                //this loops through all class nodes in user db and then we add to myClasses
+                for(DataSnapshot data : snapshot.getChildren()) {
+                    String sClass = data.getValue().toString();
+                    //Sends all the class names into myClasses
+                    myClasses.add(sClass);
+                }
+
+                updateClasses();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("[POSTS]", "Error getting posts");
+            }
+        });
+
+        //Pull names from db
+        mFName.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String currFName = snapshot.getValue().toString();
+                firstNameEdit.setText(currFName);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        mLName.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String currLName = snapshot.getValue().toString();
+                lastNameEdit.setText(currLName);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //when done editing, update name
+        firstNameEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                updateName();
+            }
+        });
+        lastNameEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                updateName();
+            }
+        });
+
         return root;
     }
 
@@ -125,19 +189,26 @@ public class SettingsFragment extends Fragment {
 
     private void updateClasses(){
         classesLayout.removeAllViews();
-        String data = "";
+        classes = "";
         for(String clas : myClasses){
-            data += clas + "\t";
+            classes += clas + "\t";
             TextView text = new TextView(getContext());
             text.setText(clas);
             text.setTextSize(16);
             text.setPadding(0,30,0,30);
             classesLayout.addView(text);
         }
-        Prefs.getPrefs(getContext()).edit().putString("classes", data).apply();
 
         //Push updated classes to db
         mDatabase.child("users").child(userID).child("classes").setValue(myClasses);
+    }
+
+    private void updateName() {
+        String currFName = firstNameEdit.getText().toString();
+        String currLName = lastNameEdit.getText().toString();
+
+        mDatabase.child("users").child(userID).child("fName").setValue(currFName);
+        mDatabase.child("users").child(userID).child("lName").setValue(currLName);
     }
 
     // Returns what classes the user wants to be included in, ordered

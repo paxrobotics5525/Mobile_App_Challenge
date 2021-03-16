@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -53,16 +54,19 @@ public class LoginFragment extends Fragment {
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         mAuth = FirebaseAuth.getInstance();
 
+        //hide action bar
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
         NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
 
-        Button buttonLogin = (Button) root.findViewById(R.id.b_Login);
-        TextView buttonCreate = (TextView) root.findViewById(R.id.b_createLink);
-        TextView buttonForgot = (TextView) root.findViewById(R.id.b_forgotPass);
-        EditText inputEmail = (EditText) root.findViewById(R.id.i_Email);
-        EditText inputPassword = (EditText) root.findViewById(R.id.i_Password);
+        Button buttonLogin = root.findViewById(R.id.b_Login);
+        TextView buttonCreate = root.findViewById(R.id.b_createLink);
+        TextView buttonForgot = root.findViewById(R.id.b_forgotPass);
+        EditText inputEmail = root.findViewById(R.id.i_Email);
+        EditText inputPassword = root.findViewById(R.id.i_Password);
 
         //check if "login" button is pressed
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +82,9 @@ public class LoginFragment extends Fragment {
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //show action bar
+                ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+
                 //Go to create account screen
                 NavDirections action = LoginFragmentDirections.actionLoginToCreate();
                 Navigation.findNavController(getView()).navigate(action);
@@ -103,7 +110,8 @@ public class LoginFragment extends Fragment {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) {
-            //go to home screen
+            //show app bar and go to home screen
+            ((AppCompatActivity) getActivity()).getSupportActionBar().show();
             NavDirections action = LoginFragmentDirections.actionLoginToHome();
             Navigation.findNavController(getView()).navigate(action);
 
@@ -125,6 +133,8 @@ public class LoginFragment extends Fragment {
                     } else {
                         // Sign in gucci
                         Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
+                        //show app bar again lol
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
                         //Go to home screen
                         NavDirections action = LoginFragmentDirections.actionLoginToHome();
                         Navigation.findNavController(getView()).navigate(action);

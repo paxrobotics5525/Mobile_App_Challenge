@@ -3,6 +3,7 @@ package pax.mesa.tbd.ui.createAccount;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
@@ -67,9 +68,12 @@ public class CreateAccountFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mData = FirebaseDatabase.getInstance().getReference();
 
+        //show action bar
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+
         View root = inflater.inflate(R.layout.fragment_create_account, container, false);
 
-        classesLayout = (LinearLayout) root.findViewById(R.id.classesLayout);
+        classesLayout = root.findViewById(R.id.classesLayout);
 
         EditText targetEmail = root.findViewById(R.id.i_reg_email);
         EditText targetPass = root.findViewById(R.id.i_reg_password);
